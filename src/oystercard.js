@@ -14,4 +14,8 @@ Oystercard.prototype.top_up = function (money) {
   return this.balance += money
 };
 
+Oystercard.prototype.deduct = function () {
+  return this.balance -= 1
+};
+
 module.exports = Oystercard
