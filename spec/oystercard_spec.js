@@ -13,4 +13,9 @@ beforeEach(function () {
 
 it('starts with a balance of 0', function() {
   assert.equal(oystercard.viewBalance(), 0)
-})
+});
+
+it('tops up the card with money', function() {
+  oystercard.top_up(5)
+  assert.equal(oystercard.viewBalance(), 5)
+});

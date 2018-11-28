@@ -7,4 +7,8 @@ Oystercard.prototype.viewBalance = function () {
   return this.balance
 };
 
+Oystercard.prototype.top_up = function (money) {
+  return this.balance += money
+};
+
 module.exports = Oystercard
