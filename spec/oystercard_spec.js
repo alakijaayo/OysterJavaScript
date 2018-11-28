@@ -31,6 +31,7 @@ it('deducts fare when a journey is made', function() {
 })
 
 it('turns in_journey to true when called', function() {
+  oystercard.top_up(5)
   oystercard.touch_in()
   expect(oystercard.in_journey, true)
 })
@@ -38,4 +39,8 @@ it('turns in_journey to true when called', function() {
 it('turns in_journey to false when called', function() {
   oystercard.touch_out()
   expect(oystercard.in_journey, false)
+})
+
+it('raises an error if user taps in without minimum balance', function() {
+  expect( function () { oystercard.touch_in() }).to.throw("Minimum balance must be at least £1")
 })
