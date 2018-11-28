@@ -1,0 +1,23 @@
+{
+  "name": "oysterjavascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alakijaayo/OysterJavaScript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alakijaayo/OysterJavaScript/issues"
+  },
+  "homepage": "https://github.com/alakijaayo/OysterJavaScript#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
+}
