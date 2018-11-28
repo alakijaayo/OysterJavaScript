@@ -19,3 +19,7 @@ it('tops up the card with money', function() {
   oystercard.top_up(5)
   assert.equal(oystercard.viewBalance(), 5)
 });
+
+it('throws an error if maximum limit is exceeded', function() {
+  expect( function () { oystercard.top_up(91) }).to.throw("Maximum amount allowed is £90")
+})

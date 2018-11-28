@@ -8,6 +8,9 @@ Oystercard.prototype.viewBalance = function () {
 };
 
 Oystercard.prototype.top_up = function (money) {
+  if (money >=91) {
+    throw "Maximum amount allowed is £90"
+  }
   return this.balance += money
 };
 
