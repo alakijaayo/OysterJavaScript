@@ -28,5 +28,14 @@ it('deducts fare when a journey is made', function() {
   oystercard.top_up(5)
   oystercard.deduct()
   assert.equal(oystercard.viewBalance(), 4)
+})
 
+it('turns in_journey to true when called', function() {
+  oystercard.touch_in()
+  expect(oystercard.in_journey, true)
+})
+
+it('turns in_journey to false when called', function() {
+  oystercard.touch_out()
+  expect(oystercard.in_journey, false)
 })
