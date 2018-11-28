@@ -27,7 +27,8 @@ Oystercard.prototype.touch_in = function () {
 };
 
 Oystercard.prototype.touch_out = function () {
-  return this.in_journey = false
+  this.in_journey = false;
+  return this.deduct()
 };
 
 module.exports = Oystercard
