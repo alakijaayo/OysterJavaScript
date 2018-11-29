@@ -59,6 +59,13 @@ it('records the station where the journey started', function() {
   expect(oystercard.entry_station).to.eql( [ station ] )
 })
 
+it('records the station where the journey ended', function() {
+  oystercard.top_up(5)
+  var exit = sinon.fake.returns('Elephant and Castle')
+  oystercard.touch_out(exit)
+  expect(oystercard.journey[0].end).to.eql( exit )
+})
+
 it('forgets the station when card is touched out', function() {
   oystercard.top_up(5)
   oystercard.touch_in('aldgate')

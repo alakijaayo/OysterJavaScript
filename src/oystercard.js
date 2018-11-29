@@ -3,6 +3,7 @@ function Oystercard() {
   this.balance = 0
   this.in_journey = false
   this.entry_station = []
+  this.journey = []
 }
 
 Oystercard.prototype.viewBalance = function () {
@@ -28,8 +29,9 @@ Oystercard.prototype.touch_in = function (station) {
   return this.in_journey = true
 };
 
-Oystercard.prototype.touch_out = function () {
+Oystercard.prototype.touch_out = function (exit) {
   this.in_journey = false;
+  this.journey.push({start: this.entry_station[0], end: exit })
   this.entry_station = []
   return this.deduct()
 };
