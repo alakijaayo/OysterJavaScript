@@ -2,6 +2,7 @@ const mocha = require('mocha');
 const expect = require('chai').expect;
 const Oystercard = require('../src/oystercard');
 var assert = require('chai').assert;
+const sinon = require('sinon');
 
 describe ("Oystercard", function() {
   var oystercard
@@ -49,4 +50,18 @@ it('deducts money when card is touched out', function() {
   oystercard.touch_in()
   oystercard.touch_out()
   assert.equal(oystercard.viewBalance(), 4)
+})
+
+it('records the station where the journey started', function() {
+  oystercard.top_up(5)
+  var station = sinon.fake.returns('aldgate')
+  oystercard.touch_in(station)
+  expect(oystercard.entry_station).to.eql( [ station ] )
+})
+
+it('forgets the station when card is touched out', function() {
+  oystercard.top_up(5)
+  oystercard.touch_in('aldgate')
+  oystercard.touch_out()
+  expect(oystercard.entry_station).to.eql( [] )
 })

@@ -2,6 +2,7 @@ function Oystercard() {
   this.MINIMUM_BALANCE = 1
   this.balance = 0
   this.in_journey = false
+  this.entry_station = []
 }
 
 Oystercard.prototype.viewBalance = function () {
@@ -19,15 +20,17 @@ Oystercard.prototype.deduct = function () {
   return this.balance -= 1
 };
 
-Oystercard.prototype.touch_in = function () {
+Oystercard.prototype.touch_in = function (station) {
   if(this.balance < this.MINIMUM_BALANCE) {
     throw "Minimum balance must be at least £1"
   }
+  this.entry_station.push(station)
   return this.in_journey = true
 };
 
 Oystercard.prototype.touch_out = function () {
   this.in_journey = false;
+  this.entry_station = []
   return this.deduct()
 };
 
