@@ -1,9 +1,11 @@
+const Journey = require('../src/journey')
+
 function Oystercard() {
   this.MINIMUM_BALANCE = 1
+  this.CARD_LIMIT = 90
   this.balance = 0
-  this.in_journey = false
-  this.entry_station = []
-  this.journey = []
+  this.history = []
+  this.journey = new Journey();
 }
 
 Oystercard.prototype.viewBalance = function () {
@@ -22,18 +24,16 @@ Oystercard.prototype.deduct = function () {
 };
 
 Oystercard.prototype.touch_in = function (station) {
-  if(this.balance < this.MINIMUM_BALANCE) {
+  if (this.balance < this.MINIMUM_BALANCE) {
     throw "Minimum balance must be at least £1"
+  } else if (this.journey.in_journey()) {
+    return this.balance -= this.journey.fare()
   }
-  this.entry_station.push(station)
-  return this.in_journey = true
+  return this.journey.in(station)
 };
 
-Oystercard.prototype.touch_out = function (exit) {
-  this.in_journey = false;
-  this.journey.push({start: this.entry_station[0], end: exit })
-  this.entry_station = []
-  return this.deduct()
+Oystercard.prototype.touch_out = function (station) {
+  return this.journey.out(station)
 };
 
 module.exports = Oystercard

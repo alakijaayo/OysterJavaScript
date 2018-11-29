@@ -5,9 +5,6 @@ function Journey() {
 }
 
 Journey.prototype.in = function (station) {
-  if (this.check_in !== null) {
-    throw "Card is already in use!"
-  }
   this.check_in = station
   return `You checked in at ${station}`
 }
@@ -29,6 +26,10 @@ Journey.prototype.fare = function () {
     return this.paid_fare = 6
   }
   return this.paid_fare
+};
+
+Journey.prototype.in_journey = function () {
+  return this.check_in !== null
 };
 
 
