@@ -23,6 +23,10 @@ Oystercard.prototype.deduct = function () {
   return this.balance -= 1
 };
 
+Oystercard.prototype.in_transit = function () {
+  return this.journey.in_journey()
+};
+
 Oystercard.prototype.touch_in = function (station) {
   if (this.balance < this.MINIMUM_BALANCE) {
     throw "Minimum balance must be at least £1"
@@ -33,7 +37,12 @@ Oystercard.prototype.touch_in = function (station) {
 };
 
 Oystercard.prototype.touch_out = function (station) {
-  return this.journey.out(station)
+    this.journey.out(station)
+    this.history.push({start: this.journey.check_in, end: station})
+    this.balance -= this.journey.fare()
+    this.journey.check_in = null
+    this.journey.check_out = null
+    return "Your Journey is complete"
 };
 
 module.exports = Oystercard

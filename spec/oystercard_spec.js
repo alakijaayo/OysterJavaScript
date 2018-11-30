@@ -31,14 +31,17 @@ it('deducts fare when a journey is made', function() {
   assert.equal(oystercard.viewBalance(), 4)
 })
 
-it('turns in_journey to true when called', function() {
+it('turns in_transit to true when called', function() {
   oystercard.top_up(5)
-  oystercard.touch_in()
-  assert.equal(oystercard.in_journey, true)
+  oystercard.touch_in('aldgate')
+  assert.equal(oystercard.in_transit(), true)
 })
 
 it('turns in_journey to false when called', function() {
-  oystercard.touch_out()
+  oystercard.top_up(5)
+  oystercard.touch_in('aldgate')
+  oystercard.touch_out('aldgate east')
+  assert.equal(oystercard.in_transit(), false)
 })
 
 it('raises an error if user taps in without minimum balance', function() {
@@ -56,19 +59,21 @@ it('records the station where the journey started', function() {
   oystercard.top_up(5)
   var station = sinon.fake.returns('aldgate')
   oystercard.touch_in(station)
-  expect(oystercard.entry_station).to.eql( [ station ] )
+  oystercard.touch_out('aldgate east')
+  expect(oystercard.history[0].start).to.eql( station )
 })
 
 it('records the station where the journey ended', function() {
   oystercard.top_up(5)
+  oystercard.touch_in('aldgate east')
   var exit = sinon.fake.returns('Elephant and Castle')
   oystercard.touch_out(exit)
-  expect().to.eql( exit )
+  expect(oystercard.history[0].end).to.eql( exit )
 })
 
 it('forgets the station when card is touched out', function() {
   oystercard.top_up(5)
   oystercard.touch_in('aldgate')
-  oystercard.touch_out()
-  expect(oystercard.entry_station).to.eql( [] )
+  oystercard.touch_out('Elephant and Castle')
+  expect(oystercard.journey.check_in).to.eql( null )
 })

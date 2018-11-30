@@ -24,23 +24,8 @@ it('has a paid fare set to 0', function() {
   assert.equal(journey.paid_fare, 0)
 })
 
-it('throws an error is card is already in use', function() {
-  journey.in('Aldgate')
-  expect(function () { journey.in('Aldgate East') }).to.throw("Card is already in use!")
-})
-
 it('informs us of station checked in at if touched in', function() {
   assert.equal(journey.in('Aldgate'), "You checked in at Aldgate")
-})
-
-it('throws an error if card has already been touched out', function() {
-  journey.in('Aldgate')
-  journey.out('Elephant and Castle')
-  expect(function () { journey.out('Clapham Junction') }).to.throw("Card has already been checked out!")
-})
-
-it('throws an error if card has not been touched in first', function() {
-  expect(function () { journey.out('Clapham Junction') }).to.throw("You have not touched in!")
 })
 
 it('informs us of what station you left from', function() {

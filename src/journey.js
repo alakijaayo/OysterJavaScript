@@ -10,11 +10,6 @@ Journey.prototype.in = function (station) {
 }
 
 Journey.prototype.out = function (station) {
-  if (this.check_out !== null) {
-    throw "Card has already been checked out!"
-  } else if (this.check_in === null) {
-    throw "You have not touched in!"
-  }
   this.check_out = station
   return `You checked out at ${station}`
 };
